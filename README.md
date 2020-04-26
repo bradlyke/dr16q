@@ -5,10 +5,8 @@ Dependencies: my other repository called "utilities".
 
 Folders:
 
-  data : This folder should hold the data files input to, or written
-         out by programs in the parent folder.
-  plots : This folder should hold the plots written out by programs
-          in the parent folder.
+- data : This folder should hold the data files input to, or written out by programs in the parent folder.
+- plots : This folder should hold the plots written out by programs in the parent folder.
 
 File Descriptions:
 
