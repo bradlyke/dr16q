@@ -10,7 +10,7 @@ My other repository called "utilities"
 - data : This folder should hold the data files input to, or written out by programs in the parent folder.
 - plots : This folder should hold the plots written out by programs in the parent folder.
 
-###File Descriptions:
+### File Descriptions:
 
 #### Main files:
 abs_mag.py : The absolute i-band magnitude calculator for DR16Q.
