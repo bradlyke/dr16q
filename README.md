@@ -3,10 +3,17 @@ The python 3 code that can generate parts of DR16Q and the plots used in the att
 
 Dependencies: my other repository called "utilities".
 
+Folders:
+
+  data : This folder should hold the data files input to, or written
+         out by programs in the parent folder.
+  plots : This folder should hold the plots written out by programs
+          in the parent folder.
+
 File Descriptions:
 
 ### Main files:
-test_file.py : I will update this readme with the files once they are added.
+abs_mag.py : The absolute i-band magnitude calculator for DR16Q.
 
 ### Other files:
-other_file.py : This will also be updated once the files are added.
+richards_kcorr_table.dat : K-correction table 4 from Richards et al. 2006.
