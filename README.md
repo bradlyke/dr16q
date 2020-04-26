@@ -14,4 +14,4 @@ File Descriptions:
 abs_mag.py : The absolute i-band magnitude calculator for DR16Q.
 
 ### Other files:
-richards_kcorr_table.dat : K-correction table 4 from Richards et al. 2006.
+richards_kcorr_table.dat : K-correction table 4 from [Richards et al. 2006.](https://ui.adsabs.harvard.edu/abs/2006AJ....131.2766R/abstract)
