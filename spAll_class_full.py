@@ -1,9 +1,30 @@
 """
-This program will generate the DR16Q Superset file and DR16Q quasar-only
-file from the spAll-v5_13_0.fits file. This input file is ~16Gb, so be careful.
+This program will generate the first step in the DR16Q Superset file chain
+from the spAll-v5_13_0.fits file. This input file is ~16Gb, so be careful.
 Because the files in use are large, and some functions can take a long time
 each function will output its own completed file, which the next
 function will load in turn. Have some HDD space free. A lot.
+
+Dependencies
+----------
+sdss_flagval : a pydl utility
+github repository : https://github.com/bradlyke/utilities
+
+
+Parameters
+----------
+None
+
+
+Output
+----------
+Four catalog files output to the ../data directory
+1) DR16Q_bitcut_{date}.fits: The initial spAll file subsampled on QSO bits
+2) DR16Q_autoclass_{date}.fits: The catalog with AUTOCLASS_DR14Q populated
+3) DR16Q_vdb_zw_{date}.fits: The classified catalog with previous
+                             visual inspection data added
+4) DR16Q_vdb_rem_{date}.fits: The vdb file with records removed that have
+                              bad ZWARNING flags (this is the final file)
 
 """
 
@@ -92,8 +113,8 @@ def cat_cut():
     data_hdu = fits.BinTableHDU.from_columns(data_out)
     data_of = fits.HDUList([prim_hdu,data_hdu])
     file_dtag = time.strftime('%Y%m%d')
-    outfile_name = 'DR16Q_bitcut_{}'.format(file_dtag)
-    #FET means FITS (writer) ERROR TRAP. This will force the file to be written
+    outfile_name = '../data/DR16Q_bitcut_{}'.format(file_dtag)
+    #FET means (F)ITS writer (E)rror (T)rap. This will force the file to be written
     #just in case a file already exists with that file name.
     superset_name = ct.fet(data_of,outfile_name)
 
@@ -484,7 +505,7 @@ def obj_class(ifile):
 
     ofile_dtag = time.strftime('%Y%m%d')
     data_ofc = fits.HDUList([prim_hduc,data_hduc])
-    out_file_namec = 'DR16Q_autoclass_{}'.format(ofile_dtag)
+    out_file_namec = '../data/DR16Q_autoclass_{}'.format(ofile_dtag)
     classified_name = ct.fet(data_ofc,out_file_namec)
 
     return classified_name
@@ -500,7 +521,7 @@ def cat_combine(inrec_name):
                         'OBJID','RUN','RERUN','CAMCOL','SKYVERSION','LAMBDA_EFF',
                         'FIELD','PSFFLUX','PSFFLUX_IVAR','PSFMAG','PSFMAGERR',
                         'EXTINCTION','SN_MEDIAN_ALL','ZOFFSET','XFOCAL','YFOCAL','CHUNK',
-                        'TILE','PLATESN2'])
+                        'TILE','PLATESN2','ID'])
     vdcopycols = np.array(['CLASS_PERSON','Z_CONF','Z_VI'])
 
     #Load the three files I need.
@@ -552,6 +573,8 @@ def cat_combine(inrec_name):
             cname1 = 'CAMCOL_NUMBER'
         elif cname == 'FIELD':
             cname1 = 'FIELD_NUMBER'
+        elif cname == 'ID':
+            cname1 = 'ID_NUMBER'
         else:
             cname1 = cname
         inarr[cname1] = inrec[cname]
@@ -572,6 +595,8 @@ def cat_combine(inrec_name):
             cname1 = 'CAMCOL_NUMBER'
         elif cname == 'FIELD':
             cname1 = 'FIELD_NUMBER'
+        elif cname == 'ID':
+            cname1 = 'ID_NUMBER'
         elif cname == 'AUTOCLASS_DR14Q':
             vinarr['AUTOCLASS_DR14Q'][vinargs] = 'UNK'
             continue
@@ -606,7 +631,7 @@ def cat_combine(inrec_name):
     #We need to make the output file name for the catalog that includes
     #the records with bad ZWARNING flags.
     outfile_dtag = time.strftime('%Y%m%d')
-    outfile_name = 'DR16Q_vdb_zw_{}'.format(outfile_dtag)
+    outfile_name = '../data/DR16Q_vdb_zw_{}'.format(outfile_dtag)
 
     #Make the HDU1 catalog and write it out.
     data_hdu = fits.BinTableHDU.from_columns(dsarr)
@@ -635,7 +660,7 @@ def zw_remove(ifile):
 
     #We also need to make another output file name
     outfile_dtag = time.strftime('%Y%m%d')
-    outfile_name = 'DR16Q_vdb_rem_{}'.format(outfile_dtag)
+    outfile_name = '../data/DR16Q_vdb_rem_{}'.format(outfile_dtag)
 
     #And make the output data HDU1 and HDU list
     data_out = np.array(zwarn_arr[wplugged])
