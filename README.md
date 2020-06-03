@@ -1,5 +1,5 @@
 ## The Sloan Digitial Sky Survey Quasar Catalog: Sixteenth Data Release (DR16Q)
-The python 3 code that can generate parts of DR16Q and the plots used in the attendant paper.
+The python 3 code that can generate parts of DR16Q and the plots used in the attendant paper (Lyke et al. 2020).
 
 ##### Dependencies: 
 
