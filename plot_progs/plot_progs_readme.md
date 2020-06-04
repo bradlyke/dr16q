@@ -6,8 +6,8 @@ Included files:
 3) sed_plot.py (Fig. 8)
 
 To be included later:
-4) mag_plot.py (Fig. 7)
-5) sky_plot.py (Fig. 1)
-6) spec_plot.py (Fig. 10-13)
-7) vdiff_plot.py (Fig. 5, both)
-8) zhisto.py (Fig. 6, both)
+1) mag_plot.py (Fig. 7)
+2) sky_plot.py (Fig. 1)
+3) spec_plot.py (Fig. 10-13)
+4) vdiff_plot.py (Fig. 5, both)
+5) zhisto.py (Fig. 6, both)
