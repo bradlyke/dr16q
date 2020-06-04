@@ -41,7 +41,7 @@ pt,mt,ft : Plate, MJD, and FiberID for a record that has all multiwavelength dat
            for any spectrum other than the hardcoded one.
 output_plot_name : the name of the plot written out
 plot_fontsize : The fontsize for everything in the plot
-               For a 5x4 plot in twocolumn, 11 works best.
+               For a 10x4 plot spanning twocolumn, 11 works best.
 save_check : 0 - don't save, just plot
              1 - don't plot, just save into ../plots/
 
@@ -321,7 +321,7 @@ def sed_plotter(infile,pt,mt,ft,fname,fntsize,write_check):
 #Call from the command line with:
 #    python sed_plot.py <DR16Q file name> <plot name> <font size> <save flag>
 # Example:
-#    python sed_plot.py DR16Q_v3.fits barsum.eps 11 1
+#    python sed_plot.py DR16Q_v3.fits sed.eps 11 1
 if __name__=='__main__':
     input_file = '../data/{}'.format(sys.argv[1])
     output_plot_name = '../plots/{}'.format(sys.argv[2])
