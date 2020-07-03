@@ -8,9 +8,7 @@ Included files:
 5) zhisto.py (Fig. 6, both)
 6) mag_plot.py (Fig. 7)
 7) sed_plot.py (Fig. 8)
-
-To be included later:
-- spec_plot.py (Fig. 10-13)
+8) spec_plot.py (Fig. 10-13)
 
 Not included:
 - Fig. 3 and Fig. 4 were made by a different group.
