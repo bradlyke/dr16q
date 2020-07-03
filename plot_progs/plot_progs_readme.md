@@ -1,4 +1,4 @@
-This folder will hold the plotting scripts that were used to generate the most of the plots in the DR16Q paper.
+This folder will hold the plotting scripts that were used to generate most of the plots in the DR16Q paper.
 
 Included files:
 1) this readme
@@ -13,4 +13,5 @@ To be included later:
 3) zhisto.py (Fig. 6, both)
 
 Not included:
+
 Fig. 3 and Fig. 4 were made by a different group.
