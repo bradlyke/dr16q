@@ -20,7 +20,7 @@ input_file : the file name for the DR16Q FITS file in the
              ../data folder. No path needed.
 output_plot_name : the name of the plot written out
 plot_fontsize : The fontsize for everything in the plot
-               For a 10x4 plot spanning twocolumn, 11 works best.
+               For a 5x4 plot in twocolumn, 11 works best.
 save_check : 0 - don't save, just plot
              1 - don't plot, just save into ../plots/
 
