@@ -246,6 +246,6 @@ if __name__=='__main__':
     output_plot_name_h = '../plots/{}'.format(sys.argv[2])
     output_plot_name_s = '../plots/{}'.format(sys.argv[3])
     plot_fontsize = int(sys.argv[4])
-    save_check = int(sys.argv[4])
+    save_check = int(sys.argv[5])
     vdiff_plot(input_file,output_plot_name_h,plot_fontsize,save_check)
     vdz(input_file,output_plot_name_s,plot_fontsize,save_check)
