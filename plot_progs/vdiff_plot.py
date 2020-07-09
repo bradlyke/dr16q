@@ -168,6 +168,7 @@ def vdiff_plot(infile,fname,fntsize,write_check):
 
 
     #Now we make the histogram plot. Stacked so each is visible.
+    #Note that the plot that appears in the paper used a slightly different algorithm.
     fig,ax = plt.subplots(figsize=(5,4))
     pvi = ax.hist(vdpv[np.where(vdpv<10600)[0]],bins=50,histtype='stepfilled',
             color='darkslateblue',alpha=1.0,
