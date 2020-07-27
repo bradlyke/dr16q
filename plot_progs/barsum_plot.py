@@ -43,27 +43,27 @@ import sys
 #This function creates a table of MJDs and the cumulative number of quasars
 #observed as of that date. This overcomes the errors that might occur
 #when some dates have 0 observations, or aren't represented in DR16Q.
-def mjd_maker(dr):
+def mjd_maker(infile):
     dr = fits.open(infile)[1].data
     tmark.tm('Making MJD Arrays')
     mjd_min = np.amin(dr['MJD']) #Starting MJD
     mjd_mpo = np.amax(dr['MJD'])+1 #Non-inclusive maximum MJD
     mjd_arr = np.arange(mjd_min,mjd_mpo,1)
     num_mjd = len(mjd_arr)
-    
+
     #This will hold the table of date vs. the cumulative number by that date.
     data = np.zeros(num_mjd,dtype=[('MJD','int32'),('NUM_UNIQUE','int64')])
     data['MJD'] = mjd_arr
-    
+
     #This array holds the first MJD that each quasar in DR16Q was observed on.
     first_mjd = np.zeros(len(sd),dtype='int64')
     first_mjd = sd['MJD']
-    
+
     #MJD can be stored either in the MJD column OR in the MJD_DUPLICATE column
     #as a more recent observation may have been selected as the primary for
     #a given quasar.
     wdupe = np.where(sd['NSPEC']>0)[0] #Find quasars with more than one obs
-    
+
     tmark.tm('Finding Earlier MJDs')
     #For all of the multiply-observed quasars, overwrite the primary obs MJD
     #with the earliest
@@ -74,20 +74,20 @@ def mjd_maker(dr):
         if mjd_min_temp < first_mjd[wdupe[i]]:
             first_mjd[wdupe[i]] = mjd_min_temp
         pbf.pbar(i,len(wdupe))
-    
+
     #Find the unique MJDs from the first_mjd array and count them
     tmark.tm('Making Data Array')
     for i in range(num_mjd):
         w = np.where(first_mjd<=data['MJD'][i])[0]
         data['NUM_UNIQUE'][i] = len(w) #Write the count to the output table
         pbf.pbar(i,num_mjd)
-    
+
     #Write the output table of cumulative number of quasars per MJD.
     data_hdu = fits.BinTableHDU.from_columns(data,name='TABLE')
     outname = '../data/unique_mjd.fits'
     data_hdu.writeto(outname)
     return outname
-    
+
 #This function makes the plot. The user can choose to save it as an eps
 #or have it plot on screen.
 def sum_plot(infile,fname,fntsize,write_check):
@@ -96,7 +96,7 @@ def sum_plot(infile,fname,fntsize,write_check):
     #Set up the plot parameters to be pretty
     matplotlib.rc('font',size=fntsize)
     matplotlib.rcParams['text.latex.preamble'] = [r'\boldmath']
-    
+
     #Set up the X and Y axis ticks.
     max_mjd = np.amax(data['MJD'])
     mjd_ticks = np.array([52000,53000,54000,55000,56000,57000,58000])
@@ -104,13 +104,13 @@ def sum_plot(infile,fname,fntsize,write_check):
     min_mjd = np.amin(data['MJD'])
     ydata = data['NUM_UNIQUE']*1e-5
     max_num = np.amax(ydata)
-    
+
     #Color code the plot. Using standard colors means other plots that
     #use the same groups can be standardized across the paper.
     sd12color = 'blue'
     sd3color='pink'
     sd4color='red'
-    
+
     #Making the plot
     fig,ax = plt.subplots(figsize=(5,4))
     ax.plot(data['MJD'],ydata,color='black',linewidth=0.8) #Plot the top line
@@ -142,7 +142,7 @@ def sum_plot(infile,fname,fntsize,write_check):
     else:
         plt.tight_layout()
         plt.show()
-        
+
     #YOU HAVE TO PUT THIS INTO TWOCOLUMN AT EPSSCALE 1.18 AND IT'S PERFECT!!!
 
 #Call from the command line with:
